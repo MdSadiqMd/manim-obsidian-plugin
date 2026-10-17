@@ -1,14 +1,37 @@
 {
-    "name": "obsidian-manim",
-    "version": "0.1.0",
-    "description": "Render ```manim code blocks as animations in Obsidian",
+    "name": "manim-obsidian-plugin",
+    "version": "1.0.0",
+    "description": "Render manim code blocks as animations, offline.",
     "main": "main.js",
     "type": "module",
     "scripts": {
         "dev": "node esbuild.config.mjs",
-        "build": "tsc --noEmit -p tsconfig.json && node esbuild.config.mjs production"
+        "build": "tsc --noEmit -p tsconfig.json && node esbuild.config.mjs production",
+        "fmt": "uvx ruff@0.12.7 check --fix --exit-zero --quiet . && uvx ruff@0.12.7 format . && biome check --write .",
+        "lint": "biome check . && uvx ruff@0.12.7 check . && uvx ruff@0.12.7 format --check .",
+        "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tests/tsconfig.json",
+        "test": "for f in tests/*.test.ts; do node \"$f\" || exit 1; done",
+        "test-render": "node --experimental-transform-types --no-warnings tests/renderer.integration.ts",
+        "test-examples": "node --experimental-transform-types --no-warnings tests/examples.integration.ts",
+        "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+        "vault-install": "pnpm build && sh -c '[ -n \"$1\" ] || { echo \"usage: pnpm $0 <vault path>\"; exit 1; } && mkdir -p \"$1/.obsidian/plugins/manim\" && cp main.js manifest.json styles.css \"$1/.obsidian/plugins/manim/\" && echo \"Installed. Enable Manim under Settings -> Community plugins (or reload it).\"' vault-install",
+        "vault-link": "pnpm build && sh -c '[ -n \"$1\" ] || { echo \"usage: pnpm $0 <vault path>\"; exit 1; } && mkdir -p \"$1/.obsidian/plugins/manim\" && for f in main.js manifest.json styles.css; do ln -sf \"$PWD/$f\" \"$1/.obsidian/plugins/manim/$f\"; done' vault-link",
+        "demo-cards": "manim render -qp --progress_bar none -v WARNING --media_dir demo/out/media -a demo/cards.py",
+        "demo-obsidian": "pnpm vault-link demo/vault && mkdir -p /tmp/obsidian-demo-profile && printf '{\"vaults\":{\"manimdemo\":{\"path\":\"%s\",\"ts\":0,\"open\":true}},\"updateDisabled\":true}' \"$PWD/demo/vault\" > /tmp/obsidian-demo-profile/obsidian.json && open -n -a Obsidian --args --user-data-dir=/tmp/obsidian-demo-profile --remote-debugging-port=9334 --disable-renderer-backgrounding --disable-backgrounding-occluded-windows --disable-background-timer-throttling",
+        "demo-record": "node demo/record.mjs",
+        "demo-edit": "\"$(head -1 \"$(command -v manim)\" | cut -c3-)\" demo/edit.py",
+        "clean": "rm -rf main.js demo/out",
+        "version": "node version-bump.mjs && git add manifest.json versions.json"
     },
-    "license": "MIT",
+    "keywords": [
+        "obsidian",
+        "obsidian-plugin",
+        "manim",
+        "animation"
+    ],
+    "author": "MdSadiqMd",
+    "license": "BSD-3-Clause",
+    "packageManager": "pnpm@10.24.0",
     "devDependencies": {
         "@biomejs/biome": "2.5.15",
         "@types/node": "^26.6.5",
