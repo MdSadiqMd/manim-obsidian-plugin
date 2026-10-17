@@ -1,0 +1,20 @@
+{
+    "name": "obsidian-manim",
+    "version": "0.1.0",
+    "description": "Render ```manim code blocks as animations in Obsidian",
+    "main": "main.js",
+    "type": "module",
+    "scripts": {
+        "dev": "node esbuild.config.mjs",
+        "build": "tsc --noEmit -p tsconfig.json && node esbuild.config.mjs production"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "@biomejs/biome": "2.5.15",
+        "@types/node": "^26.6.5",
+        "builtin-modules": "^5.4.0",
+        "esbuild": "^0.28.2",
+        "obsidian": "^1.14.4",
+        "typescript": "^7.0.2"
+    }
+}
