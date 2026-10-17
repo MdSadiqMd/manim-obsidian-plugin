@@ -1,0 +1,11 @@
+{
+    "id": "manim_renderer_sadiq",
+    "name": "Manim-Obsidian Renderer",
+    "version": "1.0.0",
+    "minAppVersion": "1.11.0",
+    "description": "Render manim code blocks as animations, works offline",
+    "author": "MdSadiqMd",
+    "authorUrl": "https://github.com/MdSadiqMd",
+    "fundingUrl": "https://github.com/sponsors/MdSadiqMd/dashboard",
+    "isDesktopOnly": true
+}
