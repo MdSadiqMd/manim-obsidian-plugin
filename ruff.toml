@@ -1,0 +1,11 @@
+line-length = 120
+# worker.py runs on whatever Python the user's manim is installed with
+target-version = "py39"
+extend-exclude = ["demo/out", "demo/vault", "test-vault", "node_modules"]
+
+[lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+
+[lint.per-file-ignores]
+# `from manim import *` is the idiomatic way to write Manim scenes
+"demo/*.py" = ["F403", "F405"]
