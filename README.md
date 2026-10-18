@@ -12,6 +12,8 @@ Render ` ```manim ` code blocks in Obsidian as animations, the way Mermaid rende
 - Readable errors with a fix for common setup problems.
 - Quality from 480p to 4K, optional 60 fps.
 
+https://github.com/user-attachments/assets/7c16f183-1bec-4624-a400-84922970a704
+
 ## Installation
 
 1. Install Manim:
