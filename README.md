@@ -148,10 +148,7 @@ src/
   errors.ts           traceback -> summary, hint and details
   worker.py           long-lived Python worker, forks one child per render
 tests/                unit and integration tests
-demo/                 scripts that recorded the demo video
 ```
-
-The demo video is made with `pnpm demo-cards`, `pnpm demo-obsidian`, `pnpm demo-record` and `pnpm demo-edit`, in that order.
 
 ## License
 
