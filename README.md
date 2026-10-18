@@ -1,18 +1,38 @@
-# Manim-Obsidian Renderer
+<h1 align="center">Manim-Obsidian Renderer</h1>
 
-Render ` ```manim ` code blocks in Obsidian as animations, the way Mermaid renders diagrams. It uses your local [Manim Community](https://www.manim.community/) install, so it works offline.
+<p align="center">
+  Render <code>```manim</code> code blocks in Obsidian as animations, the way Mermaid renders diagrams.<br>
+  It uses your local <a href="https://www.manim.community/">Manim Community</a> install, so it works offline.
+</p>
+
+<p align="center">
+  <a href="https://obsidian.md"><img alt="Obsidian plugin" src="https://img.shields.io/badge/Obsidian-plugin-7C3AED?logo=obsidian&logoColor=white"></a>
+  <a href="https://www.manim.community/"><img alt="Manim Community" src="https://img.shields.io/badge/Manim-Community-58C4DD"></a>
+  <img alt="Desktop only" src="https://img.shields.io/badge/platform-desktop-555">
+  <a href="LICENSE"><img alt="BSD 3-Clause license" src="https://img.shields.io/github/license/MdSadiqMd/manim-obsidian-plugin"></a>
+</p>
+
+<p align="center">
+  <a href="#installation">Installation</a> ·
+  <a href="#usage">Usage</a> ·
+  <a href="#settings">Settings</a> ·
+  <a href="#troubleshooting">Troubleshooting</a> ·
+  <a href="#performance">Performance</a>
+</p>
+
+https://github.com/user-attachments/assets/7c16f183-1bec-4624-a400-84922970a704
+
+<p align="center"><sub>Music: "Inspired" by Kevin MacLeod (<a href="https://incompetech.com">incompetech.com</a>), licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</sub></p>
 
 ## Features
 
-- Write Manim in a ` ```manim ` block and the video plays in place.
-- Fast renders: a warm Python worker, a 480p draft first, then full quality.
-- Renders in the background while you pause typing inside a block.
-- Renders are cached, so notes reopen instantly.
-- Python syntax highlighting while editing.
-- Readable errors with a fix for common setup problems.
-- Quality from 480p to 4K, optional 60 fps.
-
-https://github.com/user-attachments/assets/7c16f183-1bec-4624-a400-84922970a704
+- **Write and watch.** Put Manim in a ` ```manim ` block and the video plays in place.
+- **Fast renders.** A warm Python worker, a 480p draft first, then full quality.
+- **Render while typing.** Renders in the background when you pause inside a block.
+- **Cached.** Notes reopen instantly.
+- **Editor support.** Python syntax highlighting while editing.
+- **Readable errors.** A summary and a fix for common setup problems.
+- **Any quality.** 480p to 4K, optional 60 fps.
 
 ## Installation
 
