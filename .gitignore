@@ -1,0 +1,12 @@
+node_modules/
+main.js
+test-vault/
+demo/out/
+demo/vault/
+__pycache__/
+*.map
+data.json
+.DS_Store
+.env
+.vscode
+.idea
