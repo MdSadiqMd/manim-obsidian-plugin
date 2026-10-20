@@ -8,6 +8,7 @@ export interface ManimSettings {
     quality: Quality;
     smooth: boolean;
     renderWhileTyping: boolean;
+    speed: number;
 }
 
 export const DEFAULT_SETTINGS: Readonly<ManimSettings> = {
@@ -15,6 +16,7 @@ export const DEFAULT_SETTINGS: Readonly<ManimSettings> = {
     quality: "l",
     smooth: false,
     renderWhileTyping: true,
+    speed: 1,
 };
 
 /** The variant to show once rendering is done; above Low, a 30 fps cap halves the work unless 60 fps is on. */
@@ -29,6 +31,8 @@ const QUALITY_OPTIONS: Record<Quality, string> = {
     p: "1440p",
     k: "4K",
 };
+
+const SPEEDS = [0.5, 1, 1.5, 1.75, 2];
 
 export class ManimSettingTab extends PluginSettingTab {
     /** Bumped on every check so a slow, outdated check can't overwrite a newer result. */
@@ -78,22 +82,17 @@ export class ManimSettingTab extends PluginSettingTab {
             .setHeading("Rendering")
             .addSetting((setting) => {
                 setting.setName("Quality").setDesc("Above 480p, a quick draft shows first");
-                // Visually hidden native radios keep arrow-key navigation and screen reader semantics for free.
-                const options = setting.controlEl.createDiv({
-                    cls: "manim-segmented",
-                    attr: { role: "radiogroup", "aria-label": "Quality" },
-                });
-                for (const [value, label] of Object.entries(QUALITY_OPTIONS)) {
-                    const option = options.createEl("label");
-                    const radio = option.createEl("input", { type: "radio", attr: { name: "manim-quality" } });
-                    radio.checked = value === settings.quality;
-                    radio.addEventListener("change", async () => {
+                segmented(
+                    setting.controlEl,
+                    "Quality",
+                    Object.entries(QUALITY_OPTIONS),
+                    settings.quality,
+                    async (value) => {
                         settings.quality = value as Quality;
                         await save();
                         plugin.rerenderBlocks();
-                    });
-                    option.appendText(label);
-                }
+                    },
+                );
             })
             .addSetting((setting) =>
                 setting
@@ -119,6 +118,21 @@ export class ManimSettingTab extends PluginSettingTab {
                         }),
                     ),
             );
+
+        new SettingGroup(containerEl).setHeading("Playback").addSetting((setting) => {
+            setting.setName("Default speed").setDesc("How fast every animation plays");
+            segmented(
+                setting.controlEl,
+                "Default speed",
+                SPEEDS.map((speed) => [String(speed), `${speed}×`]),
+                String(settings.speed),
+                async (value) => {
+                    settings.speed = Number(value);
+                    await save();
+                    plugin.applySpeed();
+                },
+            );
+        });
 
         new SettingGroup(containerEl).setHeading("Cache").addSetting((setting) => {
             const showSize = async () => {
@@ -157,6 +171,24 @@ export class ManimSettingTab extends PluginSettingTab {
             const message = (err as Error).message;
             setStatus(status, "error", describeError(message).summary).setAttr("title", message);
         }
+    }
+}
+
+/** A row of buttons for picking one option. Visually hidden native radios keep arrow-key navigation and screen reader semantics for free. */
+function segmented(
+    parent: HTMLElement,
+    label: string,
+    options: [value: string, text: string][],
+    current: string,
+    onChange: (value: string) => void,
+) {
+    const group = parent.createDiv({ cls: "manim-segmented", attr: { role: "radiogroup", "aria-label": label } });
+    for (const [value, text] of options) {
+        const option = group.createEl("label");
+        const radio = option.createEl("input", { type: "radio", attr: { name: `manim-${label}` } });
+        radio.checked = value === current;
+        radio.addEventListener("change", () => onChange(value));
+        option.appendText(text);
     }
 }
 

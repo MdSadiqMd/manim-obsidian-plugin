@@ -93,8 +93,15 @@ export class ManimBlock extends MarkdownRenderChild {
         });
         video.muted = true;
         video.currentTime = resumeAt;
+        this.applySpeed();
         if (isDraft) this.containerEl.createDiv({ cls: "manim-badge", text: "Draft · rendering full quality…" });
         this.playWhileVisible(video);
+    }
+
+    applySpeed() {
+        const video = this.containerEl.querySelector("video");
+        // defaultPlaybackRate survives a reload of the source; playbackRate is what plays now
+        if (video) video.defaultPlaybackRate = video.playbackRate = this.plugin.settings.speed;
     }
 
     /**

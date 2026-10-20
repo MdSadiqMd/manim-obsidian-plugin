@@ -60,6 +60,11 @@ export default class ManimPlugin extends Plugin {
         for (const block of this.blocks) block.rerender();
     }
 
+    /** Sets every on-screen animation to the default speed, without re-rendering. */
+    applySpeed() {
+        for (const block of this.blocks) block.applySpeed();
+    }
+
     resourceUrl(file: string): string {
         return this.app.vault.adapter.getResourcePath(`${this.cacheDir}/${file}`);
     }
