@@ -102,6 +102,7 @@ class Surface3D(ThreeDScene):
 | Quality | 480p (default) to 4K. Above 480p, a quick draft shows first |
 | Smooth 60 fps | Above 480p, 60 fps instead of 30. About 2× slower |
 | Render while typing | Renders in the background when you pause in a block |
+| Default speed | 0.5× to 2×, 1× by default. Changes playing animations without re-rendering |
 | Rendered animations | Cache size, with a button to clear it |
 
 ## Troubleshooting
